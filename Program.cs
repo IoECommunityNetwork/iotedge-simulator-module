@@ -62,7 +62,7 @@ namespace demoedgev2
                                  {
                                      Values =
                                          Enumerable.Range(0, 12)
-                                             .Select(gun => new MessageBody.MessageValue { DataPoint = $"Gun{gun}_Kor", Value = rand.Next(0, 1001) })
+                                             .Select(item => new MessageBody.MessageValue { DataPoint = $"Some{item}_Value", Value = rand.Next(0, 1001) })
                                              .ToList()
                                  }
                      )
@@ -71,7 +71,7 @@ namespace demoedgev2
                      .Select(messageBytes => new Message(messageBytes))
                      .SelectMany(async message =>
                      {
-                         await IoTHubModuleClient.SendEventAsync("GunOutput", message);
+                         await IoTHubModuleClient.SendEventAsync("DataOutput", message);
                          return Unit.Default;
                      })
                      .Subscribe(_ => Console.WriteLine($"{DateTime.Now} - Sent message"),
